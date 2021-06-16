@@ -5,6 +5,10 @@ import {
   PostService,
 } from './logic'
 
+export class PostRequestDto {}
+
+export class PostResponseDto {}
+
 async function bootstrap() {
   const controller = new PostController(new PostService(new PostRepository()))
 
