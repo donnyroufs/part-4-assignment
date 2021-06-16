@@ -29,7 +29,9 @@ describe('bootstrap', () => {
     })
 
     it('should return an instance of the dto', () => {
-      expect(PostRequestDto.from(body)).toStrictEqual(PostRequestDto.from(body))
+      const result = PostRequestDto.from(body)
+      expect(result).toStrictEqual(PostRequestDto.from(body))
+      expect(result).toBeInstanceOf(PostRequestDto)
     })
   })
 
@@ -46,9 +48,11 @@ describe('bootstrap', () => {
     })
 
     it('should return an instance of the dto', () => {
-      expect(PostResponseDto.from(body)).toStrictEqual(
+      const result = PostResponseDto.from(body)
+      expect(result).toStrictEqual(
         new PostResponseDto(body.title, body.content)
       )
+      expect(result).toBeInstanceOf(PostResponseDto)
     })
   })
 })
