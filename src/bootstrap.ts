@@ -1,50 +1,31 @@
-import 'dotenv/config'
 import {
-  UserController,
-  UserEntity,
-  UserRepository,
-  UserService,
+  PostController,
+  PostEntity,
+  PostRepository,
+  PostService,
 } from './logic'
 
-export class UserRequestDto {
-  constructor(
-    public readonly username: string,
-    public readonly password: string
-  ) {}
+// You dont have to do anything inside the logic folder, however feel free to play around after
+// you got all the tests green :)
 
-  static from(data: Partial<UserRequestDto>) {
-    if (!data.username || !data.password) {
-      throw new Error('Missing values')
-    }
+// ** run yarn test:watch ** to get started
 
-    return new UserRequestDto(data.username, data.password)
-  }
-}
-
-class UserResponseDto {
-  constructor(public readonly username: string) {}
-
-  static from(entity: UserEntity) {
-    return new UserResponseDto(entity.username)
-  }
-}
-
-console.clear()
+export class PostRequestDto {}
+export class PostResponseDto {}
 
 async function bootstrap() {
-  const controller = new UserController(new UserService(new UserRepository()))
+  const controller = new PostController(new PostService(new PostRepository()))
 
   const body = {
-    username: 'john',
-    password: 'strongJohn',
-    crazy: true,
+    title: 'part 4',
+    content: 'learning about dtos and layers I think?',
+    realProp: 'uhu',
+    nonsense: 'esnesnon',
   }
 
-  const requestDto = UserRequestDto.from(body)
-  const createdUser = await controller.store(requestDto)
-  const responseDto = UserResponseDto.from(createdUser)
+  const createdPost = await controller.store(body)
 
-  console.log({ createdUser: responseDto })
+  console.log({ createdPost })
 }
 
 bootstrap()
